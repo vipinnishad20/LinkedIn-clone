@@ -26,23 +26,26 @@ function Feed() {
   const user = useSelector(selectUser);
   const [posts, setPosts] = useState([]);
   const [input, setInput] = useState("");
-  useEffect(() => asyncGetPosts(), [input]);
+   useEffect(() => asyncGetPosts(), []);
   const sendPost = (e) => {
     e.preventDefault();
     asyncAddPost();
     setInput("");
+    asyncGetPosts();
+   
+
   };
   async function asyncGetPosts() {
     try {
       const postsRef = collection(db, "posts");
       const q = query(postsRef, orderBy("timestamp", "desc"));
       const querySnapshot = await getDocs(q);
-      const mappedData = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        data: doc.data(),
+      const mappedData = querySnapshot?.docs?.map((doc) => ({
+        id: doc?.id||"",
+        data: doc?.data()||"",
       }));
-      console.log("Retrieved: %d posts", mappedData.length);
-      setPosts(mappedData);
+      console.log("Retrieved: %d posts", mappedData?.length);
+      setPosts(mappedData?.length ? mappedData:[]);
     } catch (e) {
       alert("Error fetching documents: ", e);
     }
@@ -88,7 +91,7 @@ function Feed() {
         </div>
       </div>
       <FlipMove>
-        {posts.map(({ id, data }) => (
+        {posts?.map(({ id, data }) => (
           <Post
             key={id}
             name={data.name}
