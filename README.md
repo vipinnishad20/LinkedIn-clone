@@ -2,7 +2,7 @@
 ---
 
 
-## The website is deployed at: _https://brilliant-meringue-37b56e.netlify.app/_
+## The website is deployed at: _https://linkedin-clone-6341bb.netlify.app/_
 
 ---
 ## Features:
